@@ -4,3 +4,5 @@ const router = express.Router();
 const Controller = require('./mainController');
 
 router.get('users/configs', Controller.readFiles);
+
+module.exports = router;

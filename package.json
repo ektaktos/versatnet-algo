@@ -1,0 +1,24 @@
+{
+  "name": "versatnet-algo",
+  "version": "1.0.0",
+  "description": "Reading wireframe qr codes with nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ektaktos/versatnet-algo.git"
+  },
+  "author": "Wale Timothy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ektaktos/versatnet-algo/issues"
+  },
+  "homepage": "https://github.com/ektaktos/versatnet-algo#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.1",
+    "express": "^4.17.1"
+  }
+}

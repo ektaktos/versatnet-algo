@@ -9,7 +9,7 @@ exports.readFiles = async (req, res) => {
   try {
     fs.readdir(directoryPath, (err, files) => {
       if (err) {
-        return res.status(400).send({ message: 'Error', 'error': 'Unable to scan directory: ' + err });
+        return res.status(400).send({ message: 'Error', path: wireguardPath, error: 'Unable to scan directory: ' + err });
       }
   
       files.forEach( (file) => {

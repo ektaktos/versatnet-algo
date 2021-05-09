@@ -10,6 +10,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Hello World' });
+})
+
 // Wildcard to match unfound route
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Route does not exist' });

@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const db = require('./models/index');
 const config = require('./config');
 const routes = require('./route');
 
@@ -17,6 +18,12 @@ app.get('/', (req, res) => {
 // Wildcard to match unfound route
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Route does not exist' });
+});
+
+db.sequelize.sync({}).then(() => {
+  console.log('Successfully Connected');
+}).catch((err) => {
+  console.log(err);
 });
 
 app.set('port', config.port || 3000);

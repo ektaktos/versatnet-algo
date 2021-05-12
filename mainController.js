@@ -23,12 +23,12 @@ exports.readFiles = async (req, res) => {
       if (err) {
         return res.status(400).send({ message: 'Error', path: wireguardPath, error: 'Unable to scan directory: ' + err });
       }
-      // for (const file of files) {
-      //   const upload = await cloudinary.uploader.upload(file.path);
-      //   await Image.create({ image_url: result.secure_url });
-      //   console.log(upload);
-      //   fileArray.push(upload);
-      // }
+      for (const file of files) {
+        const upload = await cloudinary.uploader.upload(file);
+        await Image.create({ image_url: result.secure_url });
+        console.log(upload);
+        fileArray.push(upload);
+      }
       return res.status(200).send({ message: 'Success', files });
     });
   } catch (error) {

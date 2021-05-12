@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const imageToBase64 = require('image-to-base64');
 var cloudinary = require('cloudinary').v2;
 const config = require('./config');
 const models = require('./models/index');
@@ -7,9 +8,9 @@ const models = require('./models/index');
 const Image = models.images;
 
 cloudinary.config({
-  cloud_name: "dunksyqjj",
-  api_key: "173989938887513",
-  api_secret: "ZPLqvCzRu55MaM1rt-wxJCmkxqU"
+  cloud_name: config.cloudName,
+  api_key: config.apiKey,
+  api_secret: config.apiSecret
 });
 
 exports.readFiles = async (req, res) => {
@@ -18,22 +19,17 @@ exports.readFiles = async (req, res) => {
   const fileArray = [];
   const errors = [];
   try {
-    fs.readdir(directoryPath, (err, files) => {
+    fs.readdir(directoryPath, async (err, files) => {
       if (err) {
         return res.status(400).send({ message: 'Error', path: wireguardPath, error: 'Unable to scan directory: ' + err });
       }
-
-      files.forEach( async (file) => {
-        cloudinary.uploader.upload(file).then(async (result) => {
-          await Image.create(image_url = result.secure_url);
-        }).catch((err) => {
-          console.log(err);
-          errors.push(err);
-        })
-        fileArray.push(file);
-        console.log(file);
-      });
-      return res.status(200).send({ message: 'Success', 'error': errors, 'data': fileArray });
+      for (const file of files) {
+        const upload = await cloudinary.uploader.upload(file.path);
+        await Image.create({ image_url: result.secure_url });
+        console.log(upload);
+        fileArray.push(upload);
+      }
+      return res.status(200).send({ message: 'Success' });
     });
   } catch (error) {
     return res.status(400).send({ message: 'Error', error });

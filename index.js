@@ -1,14 +1,18 @@
 const express = require('express');
+const fs = require('fs');
 const cors = require('cors');
+const multer = require('multer');
 const db = require('./models/index');
 const config = require('./config');
 const routes = require('./route');
+const upload = multer({ dest: 'uploads/' });
 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(upload.any());
 app.use(routes);
 
 app.get('/', (req, res) => {

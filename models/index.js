@@ -13,6 +13,12 @@ const sequelize = new Sequelize(
     host: dbPort,
     dialect: 'mysql',
     logging: false,
+    dialectOptions: {
+      ssl: {
+          ssl: true,
+          cert: fs.readFileSync('ca-certificate.crt', "utf8")
+      }
+  },
   },
 );
 

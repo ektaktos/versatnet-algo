@@ -16,6 +16,7 @@ exports.readFiles = async (req, res) => {
   const wireguardPath = `./../algo/configs/${config.ip_address}/wireguard`;
   const directoryPath = path.join(__dirname, wireguardPath);
   const fileArray = [];
+  const errors = [];
   try {
     fs.readdir(directoryPath, (err, files) => {
       if (err) {
@@ -27,11 +28,12 @@ exports.readFiles = async (req, res) => {
           await Image.create(image_url = result.secure_url);
         }).catch((err) => {
           console.log(err);
+          errors.push(err);
         })
         fileArray.push(file);
         console.log(file);
       });
-      return res.status(200).send({ message: 'Succsess', 'data': fileArray });
+      return res.status(200).send({ message: 'Success', 'error': errors, 'data': fileArray });
     });
   } catch (error) {
     return res.status(400).send({ message: 'Error', error });

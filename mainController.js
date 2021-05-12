@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 var cloudinary = require('cloudinary').v2;
 const config = require('./config');
-const models = require('../models/index');
+const models = require('./models/index');
 
 const Image = models.images;
 
@@ -23,7 +23,7 @@ exports.readFiles = async (req, res) => {
       }
 
       files.forEach( async (file) => {
-        cloudinary.uploader.upload(file).then((result) => {
+        cloudinary.uploader.upload(file).then(async (result) => {
           await Image.create(image_url = result.secure_url);
         }).catch((err) => {
           console.log(err);

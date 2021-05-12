@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { Sequelize, DataTypes } = require('sequelize');
-const { dbName, dbUser, dbPass, dbPort } = require('../config');
+const { dbName, dbUser, dbPass, dbPort, dbHost } = require('../config');
 
 const basename = path.basename(__filename);
 const db = {};
@@ -10,15 +10,10 @@ const sequelize = new Sequelize(
   dbName,
   dbUser,
   dbPass, {
-    host: dbPort,
+    host: dbHost,
+    port: dbPort,
     dialect: 'mysql',
     logging: false,
-    dialectOptions: {
-      ssl: {
-          ssl: true,
-          cert: fs.readFileSync('ca-certificate.crt', "utf8")
-      }
-  },
   },
 );
 

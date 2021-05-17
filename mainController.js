@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const imageToBase64 = require('image-to-base64');
 var cloudinary = require('cloudinary').v2;
 const config = require('./config');
 const models = require('./models/index');
@@ -14,12 +13,12 @@ cloudinary.config({
 });
 
 exports.readFiles = async (req, res) => {
-  const wireguardPath = `./../algo/configs/${config.ip_address}/wireguard`;
-  const directoryPath = path.join(__dirname, wireguardPath);
   Images.destroy({
     where: {},
     truncate: true
   });
+  const wireguardPath = `./../algo/configs/${config.ip_address}/wireguard`;
+  const directoryPath = path.join(__dirname, wireguardPath);
   try {
     fs.readdir(directoryPath, async (err, files) => {
       if (err) {

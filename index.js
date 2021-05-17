@@ -16,7 +16,7 @@ app.use(upload.any());
 app.use(routes);
 
 app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Hello World' });
+  res.status(200).json({ message: 'Hello Worlddd' });
 })
 
 // Wildcard to match unfound route

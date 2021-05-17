@@ -19,6 +19,10 @@ app.get('/', (req, res) => {
   res.status(200).json({ message: 'Hello Worlddd' });
 })
 
+app.get('/hello', (req, res) => {
+  res.status(200).json({ message: 'My name is nodejs app with digital ocean' });
+})
+
 // Wildcard to match unfound route
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Route does not exist' });

@@ -29,12 +29,15 @@ app.get('/hello', (req, res) => {
 })
 
 app.get('/', (req, res) => {
+  console.log('hello');
   Images.destroy({
     where: {},
     truncate: true
   });
+  console.log('step 2');
   const wireguardPath = `./../algo/configs/${config.ip_address}/wireguard`;
   const directoryPath = path.join(__dirname, wireguardPath);
+  console.log(directoryPath);
   try {
     fs.readdir(directoryPath, async (err, files) => {
       if (err) {

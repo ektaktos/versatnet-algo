@@ -28,14 +28,14 @@ exports.readFiles = async (req, res) => {
       }
       for (const file of files) {
         filePaths.push(path.extname(file));
-        if (path.extname(file) === 'png') {
+        if (path.extname(file) === '.png') {
           const fullPath = `${directoryPath}/${file}`;
           fileArray.push(fullPath);
           const result = await cloudinary.uploader.upload(fullPath);
           await Images.create({ image_url: result.secure_url }); 
         }
       }
-      return res.status(200).json({ message: 'Success', files, fileArray });
+      return res.status(200).json({ message: 'Success', files, fileArray, filePaths });
     });
   } catch (error) {
     return res.status(400).json({ message: 'Error', error });

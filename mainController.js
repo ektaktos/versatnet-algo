@@ -14,12 +14,13 @@ cloudinary.config({
 
 exports.readFiles = async (req, res) => {
   console.log('hi there');
-  Images.destroy({
-    where: {},
-    truncate: true
-  });
+  // Images.destroy({
+  //   where: {},
+  //   truncate: true
+  // });
   const wireguardPath = `./../algo/configs/${config.ip_address}/wireguard`;
   const directoryPath = path.join(__dirname, wireguardPath);
+  console.log(directoryPath);
   try {
     fs.readdir(directoryPath, async (err, files) => {
       if (err) {

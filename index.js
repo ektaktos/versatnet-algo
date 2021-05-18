@@ -15,12 +15,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(upload.any());
 app.use(routes);
 
-app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Hello Worlddd' });
-})
-
 app.get('/hello', (req, res) => {
   res.status(200).json({ message: 'My name is nodejs app with digital ocean' });
+})
+
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Hello Worlddd' });
 })
 
 // Wildcard to match unfound route

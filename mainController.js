@@ -13,7 +13,7 @@ cloudinary.config({
 });
 
 exports.readFiles = async (req, res) => {
-  return res.status(200).send({ message: 'Success'});
+  console.log('hi there');
   Images.destroy({
     where: {},
     truncate: true

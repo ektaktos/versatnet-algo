@@ -29,6 +29,7 @@ app.get('/hello', (req, res) => {
 })
 
 app.get('/hi', (req, res) => {
+  console.log('hi there');
   res.status(200).json({ message: 'Hola world' });
 })
 

@@ -14,27 +14,27 @@ cloudinary.config({
 
 exports.readFiles = async (req, res) => {
   console.log('hi there');
-  // Images.destroy({
-  //   where: {},
-  //   truncate: true
-  // });
+  Images.destroy({
+    where: {},
+    truncate: true
+  });
   const wireguardPath = `./../algo/configs/${config.ip_address}/wireguard`;
   const directoryPath = path.join(__dirname, wireguardPath);
   console.log(directoryPath);
-  return res.status(200).send({ message: 'Success', path: directoryPath});
+  return res.status(200).json({ message: 'Success', path: directoryPath});
   // try {
   //   fs.readdir(directoryPath, async (err, files) => {
   //     if (err) {
-  //       return res.status(400).send({ message: 'Error', path: wireguardPath, error: 'Unable to scan directory: ' + err });
+  //       return res.status(400).json({ message: 'Error', path: wireguardPath, error: 'Unable to scan directory: ' + err });
   //     }
   //     for (const file of files) {
   //       const fullPath = `${directoryPath}/${file}`;
   //       const result = await cloudinary.uploader.upload(fullPath);
   //       await Images.create({ image_url: result.secure_url });
   //     }
-  //     return res.status(200).send({ message: 'Success'});
+  //     return res.status(200).json({ message: 'Success'});
   //   });
   // } catch (error) {
-  //   return res.status(400).send({ message: 'Error', error });
+  //   return res.status(400).json({ message: 'Error', error });
   // }
 };

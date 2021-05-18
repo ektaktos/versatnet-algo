@@ -24,9 +24,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(upload.any());
 app.use(routes);
 
-app.get('/hello', (req, res) => {
-  res.status(200).json({ message: 'My name is nodejs app with digital ocean' });
-})
+// app.get('/hello', (req, res) => {
+//   res.status(200).json({ message: 'My name is nodejs app with digital ocean' });
+// })
 
 app.get('/', (req, res) => {
   console.log('hello');

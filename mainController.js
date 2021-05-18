@@ -17,6 +17,8 @@ exports.readFiles = async (req, res) => {
     where: {},
     truncate: true
   });
+  const fileArray = [];
+  const filePaths = [];
   const wireguardPath = `./../algo/configs/${config.ip_address}/wireguard`;
   const directoryPath = path.join(__dirname, wireguardPath);
   try {
@@ -25,13 +27,15 @@ exports.readFiles = async (req, res) => {
         return res.status(400).json({ message: 'Error', path: wireguardPath, error: 'Unable to scan directory: ' + err });
       }
       for (const file of files) {
+        filePaths.push(path.extname(file));
         if (path.extname(file) === 'png') {
           const fullPath = `${directoryPath}/${file}`;
+          fileArray.push(fullPath);
           const result = await cloudinary.uploader.upload(fullPath);
           await Images.create({ image_url: result.secure_url }); 
         }
       }
-      return res.status(200).json({ message: 'Success', files });
+      return res.status(200).json({ message: 'Success', files, fileArray });
     });
   } catch (error) {
     return res.status(400).json({ message: 'Error', error });

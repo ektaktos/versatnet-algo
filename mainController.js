@@ -37,10 +37,15 @@ exports.readFiles = async (req, res) => {
         if (path.extname(file) === '.png') {
           const basename = path.basename(file);
           const newPath = path.join(__dirname, "public/images", basename);
-          fs.copyFileSync(filepath, newPath);
+          fs.copyFile(filepath, newPath, (err) => {
+            if(err) {
+              return res.status(400).json({ message: 'Error', err });
+            } else {
+              const imageUrl = `http://vpn.devdigit.com/images/${basename}`;
+              await Images.create({ image_url: imageUrl }); 
+            }
+          });
           // const result = await cloudinary.uploader.upload(fullPath);
-          const imageUrl = `http://vpn.devdigit.com/images/${basename}`;
-          await Images.create({ image_url: imageUrl }); 
         }
       }
       return res.status(200).json({ message: 'Success', files, fileArray, filePaths });

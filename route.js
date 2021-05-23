@@ -4,7 +4,7 @@ const router = express.Router();
 const Controller = require('./mainController');
 
 router.get('/configs', Controller.readFiles);
-router.get('/images', mainController.getImages);
+router.get('/images', Controller.getImages);
 
 
 module.exports = router;

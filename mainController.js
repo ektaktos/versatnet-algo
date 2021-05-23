@@ -50,7 +50,7 @@ exports.readFiles = async (req, res) => {
           // const result = await cloudinary.uploader.upload(fullPath);
         }
       }
-      return res.status(200).json({ message: 'Success', files, newPath, fileArray, filePaths });
+      return res.status(200).json({ message: 'Success', files, newPaths, fileArray, filePaths });
     });
   } catch (error) {
     return res.status(400).json({ message: 'Error', error });

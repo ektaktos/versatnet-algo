@@ -39,14 +39,14 @@ exports.readFiles = async (req, res) => {
           const newPath = path.join(__dirname, "/public/images", basename);
           filePaths.push(filepath);
           newPaths.push(newPath);
-          // fs.copyFile(filepath, newPath, (err) => {
-          //   if(err) {
-          //     // return res.status(400).json({ message: 'Error', err });
-          //   } else {
-          //     const imageUrl = `http://vpn.devdigit.com/images/${basename}`;
-          //     await Images.create({ image_url: imageUrl }); 
-          //   }
-          // });
+          fs.copyFile(filepath, newPath, (err) => {
+            if(err) {
+              return res.status(400).json({ message: 'Error', err });
+            } else {
+              const imageUrl = `http://vpn.devdigit.com/images/${basename}`;
+              await Images.create({ image_url: imageUrl }); 
+            }
+          });
           // const result = await cloudinary.uploader.upload(fullPath);
         }
       }

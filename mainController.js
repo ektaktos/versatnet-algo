@@ -33,7 +33,7 @@ exports.readFiles = async (req, res) => {
       }
       for (const file of files) {
         const filepath = path.resolve(file);
-        filePaths.push(path.extname(filepath));
+        filePaths.push(filepath);
         if (path.extname(file) === '.png') {
           const basename = path.basename(file);
           const newPath = path.join(__dirname, "public/images", basename);

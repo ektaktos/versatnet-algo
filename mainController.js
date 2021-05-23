@@ -24,6 +24,7 @@ exports.readFiles = async (req, res) => {
   });
   const fileArray = [];
   const filePaths = [];
+  const newPaths = [];
   const wireguardPath = `./../algo/configs/${config.ip_address}/wireguard`;
   const directoryPath = path.join(__dirname, wireguardPath);
   try {
@@ -37,18 +38,19 @@ exports.readFiles = async (req, res) => {
           const filepath = `${directoryPath}/${basename}`;
           const newPath = path.join(__dirname, "public/images", basename);
           filePaths.push(filepath);
-          fs.copyFile(filepath, newPath, (err) => {
-            if(err) {
-              // return res.status(400).json({ message: 'Error', err });
-            } else {
-              const imageUrl = `http://vpn.devdigit.com/images/${basename}`;
-              await Images.create({ image_url: imageUrl }); 
-            }
-          });
+          newPaths.push(newPath);
+          // fs.copyFile(filepath, newPath, (err) => {
+          //   if(err) {
+          //     // return res.status(400).json({ message: 'Error', err });
+          //   } else {
+          //     const imageUrl = `http://vpn.devdigit.com/images/${basename}`;
+          //     await Images.create({ image_url: imageUrl }); 
+          //   }
+          // });
           // const result = await cloudinary.uploader.upload(fullPath);
         }
       }
-      return res.status(200).json({ message: 'Success', files, fileArray, filePaths });
+      return res.status(200).json({ message: 'Success', files, newPath, fileArray, filePaths });
     });
   } catch (error) {
     return res.status(400).json({ message: 'Error', error });

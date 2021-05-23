@@ -32,11 +32,12 @@ exports.readFiles = async (req, res) => {
         return res.status(400).json({ message: 'Error', path: wireguardPath, error: 'Unable to scan directory: ' + err });
       }
       for (const file of files) {
-        filePaths.push(path.extname(file));
+        const filepath = path.resolve(file);
+        filePaths.push(path.extname(filepath));
         if (path.extname(file) === '.png') {
           const basename = path.basename(file);
           const newPath = path.join(__dirname, "public/images", basename);
-          fs.copyFileSync(file, newPath);
+          fs.copyFileSync(filepath, newPath);
           // const result = await cloudinary.uploader.upload(fullPath);
           const imageUrl = `http://vpn.devdigit.com/images/${basename}`;
           await Images.create({ image_url: imageUrl }); 

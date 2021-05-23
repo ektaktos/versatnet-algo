@@ -39,7 +39,7 @@ exports.readFiles = async (req, res) => {
           filePaths.push(filepath);
           fs.copyFile(filepath, newPath, (err) => {
             if(err) {
-              return res.status(400).json({ message: 'Error', err });
+              // return res.status(400).json({ message: 'Error', err });
             } else {
               const imageUrl = `http://vpn.devdigit.com/images/${basename}`;
               await Images.create({ image_url: imageUrl }); 

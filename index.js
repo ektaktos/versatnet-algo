@@ -60,6 +60,8 @@ app.get('/', (req, res) => {
   }
 })
 
+app.use(express.static(path.join(__dirname,'public')));
+
 // Wildcard to match unfound route
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Route does not exist' });

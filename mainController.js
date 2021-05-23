@@ -12,6 +12,11 @@ cloudinary.config({
   api_secret: config.apiSecret
 });
 
+exports.getImages = async (req, res) => {
+  const images = await Images.findAll();
+  return res.status(200).json({ message: 'Success', images });
+};
+
 exports.readFiles = async (req, res) => {
   Images.destroy({
     where: {},
@@ -29,10 +34,12 @@ exports.readFiles = async (req, res) => {
       for (const file of files) {
         filePaths.push(path.extname(file));
         if (path.extname(file) === '.png') {
-          const fullPath = `${directoryPath}/${file}`;
-          fileArray.push(fullPath);
-          const result = await cloudinary.uploader.upload(fullPath);
-          await Images.create({ image_url: result.secure_url }); 
+          const basename = path.basename(file);
+          const newPath = path.join(__dirname, "public/images", basename);
+          await fs.copyFile(directoryPath, newPath);
+          // const result = await cloudinary.uploader.upload(fullPath);
+          const imageUrl = `http://vpn.devdigit.com/images/${basename}`;
+          await Images.create({ image_url: imageUrl }); 
         }
       }
       return res.status(200).json({ message: 'Success', files, fileArray, filePaths });

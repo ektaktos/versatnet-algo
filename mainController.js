@@ -36,7 +36,7 @@ exports.readFiles = async (req, res) => {
         if (path.extname(file) === '.png') {
           const basename = path.basename(file);
           const newPath = path.join(__dirname, "public/images", basename);
-          fs.copyFileSync(directoryPath, newPath);
+          // fs.copyFileSync(directoryPath, newPath);
           // const result = await cloudinary.uploader.upload(fullPath);
           const imageUrl = `http://vpn.devdigit.com/images/${basename}`;
           await Images.create({ image_url: imageUrl }); 

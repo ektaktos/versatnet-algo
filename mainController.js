@@ -36,7 +36,7 @@ exports.readFiles = async (req, res) => {
         if (path.extname(file) === '.png') {
           const basename = path.basename(file);
           const filepath = `${directoryPath}/${basename}`;
-          const newPath = path.join(__dirname, "public/images", basename);
+          const newPath = path.join(__dirname, "/public/images", basename);
           filePaths.push(filepath);
           newPaths.push(newPath);
           // fs.copyFile(filepath, newPath, (err) => {

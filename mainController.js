@@ -32,11 +32,11 @@ exports.readFiles = async (req, res) => {
         return res.status(400).json({ message: 'Error', path: wireguardPath, error: 'Unable to scan directory: ' + err });
       }
       for (const file of files) {
-        const filepath = path.resolve(file);
-        filePaths.push(filepath);
         if (path.extname(file) === '.png') {
           const basename = path.basename(file);
+          const filepath = `${directoryPath}/${basename}`;
           const newPath = path.join(__dirname, "public/images", basename);
+          filePaths.push(filepath);
           // fs.copyFile(filepath, newPath, (err) => {
           //   if(err) {
           //     return res.status(400).json({ message: 'Error', err });

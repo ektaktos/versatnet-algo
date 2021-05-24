@@ -19,7 +19,7 @@ exports.getImages = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
-  const { email, name } = req.body;
+  const { name } = req.body;
   const filePath = `./../algo/config.cfg`;
   // const filePath = './../../movielist/images/config.cfg';
   const fileFullPath = path.join(__dirname, filePath);
@@ -28,17 +28,30 @@ exports.createUser = async (req, res) => {
     //   if (err) throw err;
     //   console.log('Saved!');
     // });
-    const position = 21;
-    const newText = '\n  - Walee';
+    const position = 11;
+    const newText = `  - ${name}`;
     fs.readFile(fileFullPath, function read(err, data) {
       if (err) throw err;
 
       const content = data.toString();
-      const fileContent = content.substring(position);
-      const file = fs.openSync(fileFullPath, 'r+');
-      const bufferedText = new Buffer.from(newText+fileContent);
-      fs.writeSync(file, bufferedText, 0, bufferedText.length, position);
-      // fs.close(file);
+      // const fileContent = content.substring(position);
+      const array = data.toString().split("\n");
+      array.splice(8, 0, newText);
+      const file = fs.createWriteStream(fileFullPath);
+      file.on('error', function(err) { /* error handling */ });
+      array.forEach(function(v) { file.write(v + '\n'); });
+      file.end();
+      // for(i=0;i<array.length;i++) {
+      //   fs.writeFile(fileFullPath, array[i]+'\n', (err) => {
+
+      //   });
+      //   console.log(array[i]);
+      // }
+      return res.status(200).json({ message: 'Success', array });
+      // const file = fs.openSync(fileFullPath, 'r+');
+      // const bufferedText = new Buffer.from(newText+fileContent);
+      // fs.writeSync(file, bufferedText, 0, bufferedText.length, position);
+      // // fs.close(file);
     })
 
     exec("./../algo update-users", (error, stdout, stderr) => {
@@ -56,7 +69,7 @@ exports.createUser = async (req, res) => {
     return res.status(400).json({ message: 'Error', error });
   }
   
-  return res.status(200).json({ message: 'Success'});
+  // return res.status(200).json({ message: 'Success'});
 };
 
 exports.readFiles = async (req, res) => {

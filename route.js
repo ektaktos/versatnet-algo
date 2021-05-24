@@ -5,7 +5,7 @@ const Controller = require('./mainController');
 
 router.get('/configs', Controller.readFiles);
 router.get('/images', Controller.getImages);
-router.get('/createUser', Controller.createUser);
+router.post('/createUser', Controller.createUser);
 
 
 module.exports = router;

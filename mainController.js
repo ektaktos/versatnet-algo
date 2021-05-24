@@ -20,8 +20,8 @@ exports.getImages = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   const { email, name } = req.body;
-  // const filePath = `./../algo/config.cfg`;
-  const filePath = './../../movielist/images/config.cfg';
+  const filePath = `./../algo/config.cfg`;
+  // const filePath = './../../movielist/images/config.cfg';
   const fileFullPath = path.join(__dirname, filePath);
   try {
     // fs.appendFile(directoryPath, '\n - Wale', function (err) {

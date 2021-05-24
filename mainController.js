@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const { exec } = require("child_process");
 var cloudinary = require('cloudinary').v2;
 const config = require('./config');
 const models = require('./models/index');
@@ -19,12 +20,37 @@ exports.getImages = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   const { email, name } = req.body;
-  const wireguardPath = `./../algo/config.cfg`;
-  const directoryPath = path.join(__dirname, wireguardPath);
+  // const filePath = `./../algo/config.cfg`;
+  const filePath = './../../movielist/images/config.cfg';
+  const fileFullPath = path.join(__dirname, filePath);
   try {
-    fs.appendFile(directoryPath, '\n - Wale', function (err) {
+    // fs.appendFile(directoryPath, '\n - Wale', function (err) {
+    //   if (err) throw err;
+    //   console.log('Saved!');
+    // });
+    const position = 21;
+    const newText = '\n  - Walee';
+    fs.readFile(fileFullPath, function read(err, data) {
       if (err) throw err;
-      console.log('Saved!');
+
+      const content = data.toString();
+      const fileContent = content.substring(position);
+      const file = fs.openSync(fileFullPath, 'r+');
+      const bufferedText = new Buffer.from(newText+fileContent);
+      fs.writeSync(file, bufferedText, 0, bufferedText.length, position);
+      // fs.close(file);
+    })
+
+    exec("./../algo update-users", (error, stdout, stderr) => {
+      if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+      }
+      console.log(`stdout: ${stdout}`);
     });
   } catch (error) {
     return res.status(400).json({ message: 'Error', error });

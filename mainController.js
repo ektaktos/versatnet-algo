@@ -36,7 +36,7 @@ exports.createUser = async (req, res) => {
       const content = data.toString();
       // const fileContent = content.substring(position);
       const array = data.toString().split("\n");
-      array.splice(8, 0, newText);
+      array.splice(position, 0, newText);
       const file = fs.createWriteStream(fileFullPath);
       file.on('error', function(err) { /* error handling */ });
       array.forEach(function(v) { file.write(v + '\n'); });

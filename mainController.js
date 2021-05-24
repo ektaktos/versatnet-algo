@@ -17,6 +17,22 @@ exports.getImages = async (req, res) => {
   return res.status(200).json({ message: 'Success', images });
 };
 
+exports.createUser = async (req, res) => {
+  const { email, name } = req.body;
+  const wireguardPath = `./../algo/config.cfg`;
+  const directoryPath = path.join(__dirname, wireguardPath);
+  try {
+    fs.appendFile(directoryPath, '\n - Wale', function (err) {
+      if (err) throw err;
+      console.log('Saved!');
+    });
+  } catch (error) {
+    return res.status(400).json({ message: 'Error', error });
+  }
+  
+  return res.status(200).json({ message: 'Success'});
+};
+
 exports.readFiles = async (req, res) => {
   Images.destroy({
     where: {},

@@ -26,6 +26,7 @@ exports.readFiles = async (req, res) => {
   const filePaths = [];
   const newPaths = [];
   const wireguardPath = `./../algo/configs/${config.ip_address}/wireguard`;
+  // const wireguardPath = './../../movielist/images';
   const directoryPath = path.join(__dirname, wireguardPath);
   try {
     fs.readdir(directoryPath, async (err, files) => {
@@ -39,7 +40,7 @@ exports.readFiles = async (req, res) => {
           const newPath = path.join(__dirname, "/public/images", basename);
           filePaths.push(filepath);
           newPaths.push(newPath);
-          fs.copyFile(filepath, newPath, (err) => {
+          fs.copyFile(filepath, newPath, async (err) => {
             if(err) {
               return res.status(400).json({ message: 'Error', err });
             } else {

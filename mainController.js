@@ -23,12 +23,15 @@ exports.createUser = async (req, res) => {
   const filePath = `./../algo/config.cfg`;
   // const filePath = './../../movielist/images/config.cfg';
   const fileFullPath = path.join(__dirname, filePath);
+  // Get length of current users
+  const images = await Images.findAll();
+  const imagesCount = images.length;
   try {
     // fs.appendFile(directoryPath, '\n - Wale', function (err) {
     //   if (err) throw err;
     //   console.log('Saved!');
     // });
-    const position = 11;
+    const position = 7 + parseInt(imagesCount);
     const newText = `  - ${name}`;
     fs.readFile(fileFullPath, function read(err, data) {
       if (err) throw err;

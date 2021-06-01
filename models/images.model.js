@@ -3,6 +3,10 @@ module.exports = (sequelize, DataTypes) => {
     image_url: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    name: {
+      ype: DataTypes.STRING,
+      allowNull: false
     }
   },{
     paranoid: true,

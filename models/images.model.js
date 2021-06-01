@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     name: {
-      ype: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     }
   },{

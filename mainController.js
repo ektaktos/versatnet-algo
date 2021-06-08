@@ -63,7 +63,8 @@ exports.createUser = async (req, res) => {
 exports.readFiles = async (req, res) => {
   Images.destroy({
     where: {},
-    truncate: true
+    truncate: true,
+    force: true
   });
   const fileArray = [];
   const filePaths = [];

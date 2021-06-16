@@ -26,9 +26,10 @@ exports.createUser = async (req, res) => {
   // Get length of current users
   const images = await Images.findAll();
   const imagesCount = images.length;
+  const imageName = `sku-${imagesCount + 1}`;
   try {
     const position = 7 + parseInt(imagesCount);
-    const newText = `  - ${name}`;
+    const newText = `  - ${imageName}`;
     fs.readFile(fileFullPath, function read(err, data) {
       if (err) throw err;
 
